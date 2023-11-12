@@ -10,7 +10,9 @@ namespace VehicleData.Core
         static void Main(string[] args)
         {
             DataPopulation data = new();
-            data.YearTablePopulation();
+
+            //data.YearTablePopulation();
+            data.MakeModelAndBaseModelPopulation();
 
             Controller controller = new();
             controller.ReadData();
