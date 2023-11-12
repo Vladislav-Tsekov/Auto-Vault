@@ -10,7 +10,7 @@ namespace VehicleData.Core
 {
     public class DataPopulation
     {
-        public void YearsTablePopulation() 
+        public void YearTablePopulation() 
         {
             var context = new VehicleDataContext();
 
