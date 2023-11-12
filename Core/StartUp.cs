@@ -9,6 +9,9 @@ namespace VehicleData.Core
     {
         static void Main(string[] args)
         {
+            DataPopulation data = new();
+            data.YearTablePopulation();
+
             Controller controller = new();
             controller.ReadData();
         }

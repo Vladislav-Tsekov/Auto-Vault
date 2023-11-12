@@ -16,6 +16,10 @@ public partial class VehicleDataContext : DbContext
     {
     }
 
+    public virtual DbSet<VehicleMake> Makes { get; set; }
+    public virtual DbSet<VehicleModel> Models { get; set; }
+    public virtual DbSet<VehicleBaseModel> BaseModels { get; set; }
+
     public virtual DbSet<DrivetrainType> DrivetrainTypes { get; set; }
 
     public virtual DbSet<Engine> Engines { get; set; }
@@ -72,15 +76,24 @@ public partial class VehicleDataContext : DbContext
 
             entity.ToTable("Vehicle");
 
-            entity.Property(e => e.BaseModel)
-                .HasMaxLength(75)
-                .IsUnicode(false);
-            entity.Property(e => e.Make)
-                .HasMaxLength(75)
-                .IsUnicode(false);
-            entity.Property(e => e.Model)
-                .HasMaxLength(75)
-                .IsUnicode(false);
+            //entity.Property(e => e.BaseModel)
+            //    .HasMaxLength(75)
+            //    .IsUnicode(false);
+            //entity.Property(e => e.Make)
+            //    .HasMaxLength(75)
+            //    .IsUnicode(false);
+            //entity.Property(e => e.Model)
+            //    .HasMaxLength(75)
+            //    .IsUnicode(false);
+
+            entity.HasOne(v => v.MakeNavigation).WithMany(m => m.Vehicles)
+                .HasForeignKey(v => v.Make);
+
+            entity.HasOne(v => v.ModelNavigation).WithMany(m => m.Vehicles)
+                .HasForeignKey(v => v.Model);
+
+            entity.HasOne(v => v.BaseModelNavigation).WithMany(b => b.Vehicles)
+                .HasForeignKey(v => v.BaseModel);
 
             entity.HasOne(d => d.DrivetrainTypeNavigation).WithMany(p => p.Vehicles)
                 .HasForeignKey(d => d.DrivetrainType)
