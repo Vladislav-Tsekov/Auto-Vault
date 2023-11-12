@@ -21,6 +21,9 @@ public partial class Vehicle
 
     public string? BaseModel { get; set; }
 
+
+
+
     public virtual DrivetrainType? DrivetrainTypeNavigation { get; set; }
 
     public virtual ICollection<Engine> Engines { get; set; } = new List<Engine>();
