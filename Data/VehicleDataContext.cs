@@ -38,12 +38,12 @@ public partial class VehicleDataContext : DbContext
 
         modelBuilder.Entity<Engine>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Engine__3214EC07D6C466BC");
+            entity.HasKey(e => e.Id);
 
             entity.ToTable("Engine");
 
             entity.Property(e => e.Displacement)
-                .HasColumnType("double");
+                .HasColumnType("float");
         });
 
         modelBuilder.Entity<TransmissionType>(entity =>
@@ -63,16 +63,6 @@ public partial class VehicleDataContext : DbContext
 
             entity.ToTable("Vehicle");
 
-            //entity.Property(e => e.BaseModel)
-            //    .HasMaxLength(75)
-            //    .IsUnicode(false);
-            //entity.Property(e => e.Make)
-            //    .HasMaxLength(75)
-            //    .IsUnicode(false);
-            //entity.Property(e => e.Model)
-            //    .HasMaxLength(75)
-            //    .IsUnicode(false);
-
             entity.HasOne(v => v.MakeNavigation).WithMany(m => m.Vehicles)
                 .HasForeignKey(v => v.Make);
 
@@ -81,6 +71,9 @@ public partial class VehicleDataContext : DbContext
 
             entity.HasOne(v => v.BaseModelNavigation).WithMany(b => b.Vehicles)
                 .HasForeignKey(v => v.BaseModel);
+
+            entity.HasOne(v => v.DisplacementNavigation).WithMany(b => b.Vehicles)
+                 .HasForeignKey(v => v.Engine);
 
             entity.HasOne(d => d.DrivetrainTypeNavigation).WithMany(p => p.Vehicles)
                 .HasForeignKey(d => d.DrivetrainType)
