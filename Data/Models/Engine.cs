@@ -7,9 +7,7 @@ public partial class Engine
 {
     public int Id { get; set; }
 
-    public int? Vehicle { get; set; }
-
     public double? Displacement { get; set; }
 
-    public virtual Vehicle? VehicleNavigation { get; set; }
+    public virtual ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
 }

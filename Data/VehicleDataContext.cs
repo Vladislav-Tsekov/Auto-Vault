@@ -7,29 +7,17 @@ namespace VehicleData.Data;
 
 public partial class VehicleDataContext : DbContext
 {
-    public VehicleDataContext()
-    {
-    }
-
-    public VehicleDataContext(DbContextOptions<VehicleDataContext> options)
-        : base(options)
-    {
-    }
+    public VehicleDataContext(){}
+    public VehicleDataContext(DbContextOptions<VehicleDataContext> options) : base(options){}
 
     public virtual DbSet<VehicleMake> Makes { get; set; }
     public virtual DbSet<VehicleModel> Models { get; set; }
     public virtual DbSet<VehicleBaseModel> BaseModels { get; set; }
-
     public virtual DbSet<DrivetrainType> DrivetrainTypes { get; set; }
-
     public virtual DbSet<Engine> Engines { get; set; }
-
     public virtual DbSet<TransmissionType> TransmissionTypes { get; set; }
-
     public virtual DbSet<Vehicle> Vehicles { get; set; }
-
     public virtual DbSet<VehicleClass> VehicleClasses { get; set; }
-
     public virtual DbSet<Year> Years { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -54,9 +42,8 @@ public partial class VehicleDataContext : DbContext
 
             entity.ToTable("Engine");
 
-            entity.HasOne(d => d.VehicleNavigation).WithMany(p => p.Engines)
-                .HasForeignKey(d => d.Vehicle)
-                .HasConstraintName("FK__Engine__Vehicle__4D94879B");
+            entity.Property(e => e.Displacement)
+                .HasColumnType("double");
         });
 
         modelBuilder.Entity<TransmissionType>(entity =>

@@ -67,7 +67,7 @@ namespace VehicleData.Core
                 }
 
                 var driveExists = context.DrivetrainTypes.FirstOrDefault(d => d.Drive == carData[3]);
-                if (engineExists is null)
+                if (driveExists is null)
                 {
                     var currentDrive = new DrivetrainType() { Drive = carData[3] };
                     context.DrivetrainTypes.Add(currentDrive);
