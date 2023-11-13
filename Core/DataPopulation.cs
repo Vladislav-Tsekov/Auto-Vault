@@ -58,19 +58,19 @@ namespace VehicleData.Core
                     context.SaveChanges();
                 }
 
-                try
+                if (double.TryParse(carData[2], out double displacementValue))
                 {
-                    var engineExists = context.Engines.FirstOrDefault(m => m.Displacement == double.Parse(carData[2]));
+                    var engineExists = context.Engines.FirstOrDefault(m => m.Displacement == displacementValue);
                     if (engineExists is null)
                     {
-                        var currentEngine = new Engine() { Displacement = double.Parse(carData[2]) };
+                        var currentEngine = new Engine() { Displacement = displacementValue };
                         context.Engines.Add(currentEngine);
                         context.SaveChanges();
                     }
                 }
-                catch (FormatException ex)
+                else
                 {
-                    Console.WriteLine($"Error parsing double?: {ex.Message}");
+                    Console.WriteLine($"Invalid double format: {carData[2]}");
                 }
 
                 var driveExists = context.DrivetrainTypes.FirstOrDefault(d => d.Drive == carData[3]);
