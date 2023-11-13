@@ -29,7 +29,7 @@ namespace VehicleData.Core
             }
         }
 
-        public void MakeModelAndBaseModelPopulation() 
+        public void RestOfDataPopulation() 
         {
             VehicleDataContext? context = new();
 
@@ -43,7 +43,6 @@ namespace VehicleData.Core
                 string[] carData = currentCar.Split(';');
 
                 var makeExists = context.Makes.FirstOrDefault(m => m.Make == carData[0]);
-
                 if (makeExists is null)
                 {
                     var currentMake = new VehicleMake() { Make = carData[0] };
@@ -52,7 +51,6 @@ namespace VehicleData.Core
                 }
 
                 var modelExists = context.Models.FirstOrDefault(m => m.Model == carData[1]);
-
                 if (modelExists is null)
                 {
                     var currentModel = new VehicleModel() { Model = carData[1] };
@@ -60,8 +58,15 @@ namespace VehicleData.Core
                     context.SaveChanges();
                 }
 
-                var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
+                var engineExists = context.Engines.FirstOrDefault(m => m.Displacement == double.Parse(carData[2]));
+                if (engineExists is null)
+                {
+                    var currentEngine = new Engine() {Displacement = double.Parse(carData[2]) };
+                    context.Engines.Add(currentEngine);
+                    context.SaveChanges();
+                }
 
+                var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
                 if (baseModelExists is null)
                 {
                     var currentBaseModel = new VehicleBaseModel() { BaseModel = carData[7] };
