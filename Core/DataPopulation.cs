@@ -66,6 +66,14 @@ namespace VehicleData.Core
                     context.SaveChanges();
                 }
 
+                var driveExists = context.DrivetrainTypes.FirstOrDefault(d => d.Drive == carData[3]);
+                if (engineExists is null)
+                {
+                    var currentDrive = new DrivetrainType() { Drive = carData[3] };
+                    context.DrivetrainTypes.Add(currentDrive);
+                    context.SaveChanges();
+                }
+
                 var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
                 if (baseModelExists is null)
                 {
