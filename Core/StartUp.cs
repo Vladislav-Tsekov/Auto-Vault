@@ -12,7 +12,7 @@ namespace VehicleData.Core
             DataPopulation data = new();
 
             //data.YearTablePopulation();
-            data.MakeModelAndBaseModelPopulation();
+            data.RestOfDataPopulation();
 
             Controller controller = new();
             controller.ReadData();
