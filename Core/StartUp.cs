@@ -11,7 +11,7 @@ namespace VehicleData.Core
         {
             DataPopulation data = new();
 
-            //data.YearTablePopulation();
+            data.YearTablePopulation();
             data.RestOfDataPopulation();
 
             //Controller controller = new();
