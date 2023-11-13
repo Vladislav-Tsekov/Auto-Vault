@@ -82,7 +82,13 @@ namespace VehicleData.Core
                     context.SaveChanges();
                 }
 
-
+                var classExists = context.VehicleClasses.FirstOrDefault(c => c.Class == carData[5]);
+                if (classExists is null)
+                {
+                    var currentClass = new VehicleClass() { Class = carData[5] };
+                    context.VehicleClasses.Add(currentClass);
+                    context.SaveChanges();
+                }
 
                 var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
                 if (baseModelExists is null)
