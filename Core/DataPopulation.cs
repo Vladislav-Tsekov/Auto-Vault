@@ -74,6 +74,16 @@ namespace VehicleData.Core
                     context.SaveChanges();
                 }
 
+                var transmissionExists = context.TransmissionTypes.FirstOrDefault(t => t.Transmission == carData[4]);
+                if (transmissionExists is null)
+                {
+                    var currentTransmission = new TransmissionType() { Transmission = carData[4] };
+                    context.TransmissionTypes.Add(currentTransmission);
+                    context.SaveChanges();
+                }
+
+
+
                 var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
                 if (baseModelExists is null)
                 {
