@@ -11,11 +11,11 @@ namespace VehicleData.Core
         {
             DataPopulation data = new();
 
-            data.YearTablePopulation();
-            data.RestOfDataPopulation();
+            //data.YearTablePopulation();
+            //data.RestOfDataPopulation();
 
-            //Controller controller = new();
-            //controller.ReadData();
+            Controller controller = new();
+            controller.ReadData();
         }
     }
 }
