@@ -9,36 +9,44 @@ namespace VehicleData.Core
     {
         public void ReadData()
         {
-            HashSet<Vehicle> cars = new();
-
             string filePath = @"all-vehicles-model.csv";
+
+            VehicleDataContext? context = new();
             using var reader = new StreamReader(filePath);
             reader.ReadLine(); // Used to skip the first column - column's titles.
 
             while (!reader.EndOfStream)
             {
-                VehicleDataContext? context = new();
                 string? currentCar = reader.ReadLine();
                 string[] carData = currentCar.Split(';');
                 double.TryParse(carData[2], out double cc);
-                int.TryParse(carData[6], out int year);
+                int.TryParse(carData[6], out int outYear);
+
+                var make = context.Makes.Single(m => m.Make == carData[0]);
+                var model = context.Models.Single(m => m.Model == carData[1]);
+                var displacement = context.Engines.Single(e => e.Displacement == cc);
+                var drivetrain = context.DrivetrainTypes.Single(d => d.Drive == carData[3]);
+                var transmissionType = context.TransmissionTypes.Single(t => t.Transmission == carData[4]);
+                var vehicleSizeClass = context.VehicleClasses.Single(v => v.Class == carData[5]);
+                var year = context.Years.Single(y => y.ManufacturingYear!.Value == outYear);
+                var baseModel = context.BaseModels.Single(bm => bm.BaseModel == carData[7]);
 
                 var vehicle = new Vehicle
                 {
-                    MakeNavigation = context.Makes.Single(m => m.Make == carData[0]),
-                    ModelNavigation = context.Models.Single(m => m.Model == carData[1]),
-                    DisplacementNavigation = context.Engines.Single(e => e.Displacement == cc),
-                    DrivetrainTypeNavigation = context.DrivetrainTypes.Single(d => d.Drive == carData[3]),
-                    TransmissionTypeNavigation = context.TransmissionTypes.Single(t => t.Transmission == carData[4]),
-                    VehicleSizeClassNavigation = context.VehicleClasses.Single(v => v.Class == carData[5]),
-                    YearNavigation = context.Years.Single(y => y.ManufacturingYear!.Value == year),
-                    BaseModelNavigation = context.BaseModels.Single(bm => bm.BaseModel == carData[7])
+                    MakeNavigation = make,
+                    ModelNavigation = model,
+                    DisplacementNavigation = displacement,
+                    DrivetrainTypeNavigation = drivetrain,
+                    TransmissionTypeNavigation = transmissionType,
+                    VehicleSizeClassNavigation = vehicleSizeClass,
+                    YearNavigation = year,
+                    BaseModelNavigation = baseModel
                 };
 
                 context.Vehicles.Add(vehicle);
-                context.SaveChangesAsync();
             }
 
+            context.SaveChanges();
             reader.Dispose();
         }
     }
