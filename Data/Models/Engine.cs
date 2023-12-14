@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VehicleData.Utilities;
 
 namespace VehicleData.Data.Models;
 

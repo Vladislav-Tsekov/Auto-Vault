@@ -13,6 +13,8 @@ namespace VehicleData.Core
             using var reader = new StreamReader(filePath);
             reader.ReadLine(); // Used to skip the first column - column's titles.
 
+            var validVehicles = new HashSet<Vehicle>();
+
             while (!reader.EndOfStream)
             {
                 string currentCar = reader.ReadLine();
@@ -26,7 +28,7 @@ namespace VehicleData.Core
                 var drivetrain = context.DrivetrainTypes.Single(d => d.Drive == carData[3]);
                 var transmissionType = context.TransmissionTypes.Single(t => t.Transmission == carData[4]);
                 var vehicleSizeClass = context.VehicleClasses.Single(v => v.Class == carData[5]);
-                var year = context.Years.Single(y => y.ManufacturingYear!.Value == outYear);
+                var year = context.Years.Single(y => y.ManufacturingYear == outYear);
                 var baseModel = context.BaseModels.Single(bm => bm.BaseModel == carData[7]);
 
                 var vehicle = new Vehicle
@@ -41,9 +43,10 @@ namespace VehicleData.Core
                     BaseModelNavigation = baseModel
                 };
 
-                context.Vehicles.Add(vehicle);
+                validVehicles.Add(vehicle);
             }
 
+            context.Vehicles.AddRange(validVehicles);
             context.SaveChanges();
             reader.Dispose();
         }
