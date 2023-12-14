@@ -51,7 +51,7 @@ namespace VehicleData.Core
                 var modelExists = context.Models.FirstOrDefault(m => m.Model == carData[1]);
                 if (modelExists is null)
                 {
-                    var currentModel = new VehicleModel() { Model = carData[1] };
+                    var currentModel = new Model() { Model = carData[1] };
                     context.Models.Add(currentModel);
                     context.SaveChanges();
                 }
@@ -98,7 +98,7 @@ namespace VehicleData.Core
                 var baseModelExists = context.BaseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
                 if (baseModelExists is null)
                 {
-                    var currentBaseModel = new VehicleBaseModel() { BaseModel = carData[7] };
+                    var currentBaseModel = new BaseModel() { BaseModel = carData[7] };
                     context.BaseModels.Add(currentBaseModel);
                     context.SaveChanges();
                 }
