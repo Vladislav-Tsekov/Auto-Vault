@@ -15,7 +15,7 @@ namespace VehicleData.Core
             data.RestOfDataPopulation();
 
             Controller controller = new();
-            controller.ReadData();
+            controller.SeedData();
         }
 
         private static void DatabaseControl(VehicleDataContext context, bool shouldDropDatabase = false)

@@ -12,7 +12,7 @@ public partial class VehicleDataContext : DbContext
     public virtual DbSet<VehicleModel> Models { get; set; }
     public virtual DbSet<VehicleBaseModel> BaseModels { get; set; }
     public virtual DbSet<DrivetrainType> DrivetrainTypes { get; set; }
-    public virtual DbSet<Engine> Engines { get; set; }
+    public virtual DbSet<VehicleEngine> Engines { get; set; }
     public virtual DbSet<TransmissionType> TransmissionTypes { get; set; }
     public virtual DbSet<Vehicle> Vehicles { get; set; }
     public virtual DbSet<VehicleClass> VehicleClasses { get; set; }
@@ -23,7 +23,7 @@ public partial class VehicleDataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
-        modelBuilder.Entity<Engine>(e => e.Property(e => e.Displacement)
+        modelBuilder.Entity<VehicleEngine>(e => e.Property(e => e.Engine)
                                           .HasColumnType("decimal(3,1)")
                                           .IsRequired(true));
 

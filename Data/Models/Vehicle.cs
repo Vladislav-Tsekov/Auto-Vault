@@ -10,7 +10,7 @@ namespace VehicleData.Data.Models
 
         [Required]
         [ForeignKey(nameof(MakeNavigation))]
-        public int Make { get; set; }
+        public int VehicleMake { get; set; }
 
         [Required]
         [ForeignKey(nameof(ModelNavigation))]
@@ -44,7 +44,7 @@ namespace VehicleData.Data.Models
         public virtual VehicleModel ModelNavigation { get; set; }
         public virtual VehicleBaseModel BaseModelNavigation { get; set; }
         public virtual DrivetrainType DrivetrainTypeNavigation { get; set; }
-        public virtual Engine DisplacementNavigation { get; set; }
+        public virtual VehicleEngine DisplacementNavigation { get; set; }
         public virtual TransmissionType TransmissionTypeNavigation { get; set; }
         public virtual VehicleClass VehicleSizeClassNavigation { get; set; }
         public virtual Year YearNavigation { get; set; }
