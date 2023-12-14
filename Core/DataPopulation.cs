@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using VehicleData.Data;
+﻿using VehicleData.Data;
 using VehicleData.Data.Models;
 
 namespace VehicleData.Core
@@ -32,7 +31,7 @@ namespace VehicleData.Core
         {
             VehicleDataContext context = new();
 
-            string filePath = @"all-vehicles-model.csv";
+            string filePath = "../../../all-vehicles-model.csv";
             using var reader = new StreamReader(filePath);
             reader.ReadLine(); // Used to skip the first row - column's titles.
 
@@ -108,21 +107,16 @@ namespace VehicleData.Core
 
             reader.Dispose();
 
-            var orderedEngines = engines.OrderBy(oe => oe.Engine);
-
-            List<DrivetrainType> validDrivetrains = new(drivetrains);
-            validDrivetrains.RemoveAll(dt => dt.Drivetrain.IsNullOrEmpty());
-
-            List<TransmissionType> validTransmissions = new(transmissions);
-            validTransmissions.RemoveAll(t => t.Transmission.IsNullOrEmpty());
+            var orderedEngines = engines.OrderBy(e => e.Engine);
 
             context.Makes.AddRange(makes);
             context.Models.AddRange(models);
             context.BaseModels.AddRange(baseModels);
             context.VehicleClasses.AddRange(classes);
             context.Engines.AddRange(orderedEngines);
-            context.DrivetrainTypes.AddRange(validDrivetrains);
-            context.TransmissionTypes.AddRange(validTransmissions);
+            context.DrivetrainTypes.AddRange(drivetrains);
+            context.TransmissionTypes.AddRange(transmissions);
+
             context.SaveChanges();
         }
     }

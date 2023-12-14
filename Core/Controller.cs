@@ -7,7 +7,7 @@ namespace VehicleData.Core
     {
         public void SeedData()
         {
-            string filePath = @"all-vehicles-model.csv";
+            string filePath = "../../../all-vehicles-model.csv";
 
             VehicleDataContext context = new();
             using var reader = new StreamReader(filePath);
@@ -19,6 +19,7 @@ namespace VehicleData.Core
             {
                 string currentCar = reader.ReadLine();
                 string[] carData = currentCar.Split(';');
+
                 bool ccParse = double.TryParse(carData[2], out double cc);
                 bool yearParse = int.TryParse(carData[6], out int outYear);
 
@@ -28,7 +29,7 @@ namespace VehicleData.Core
                 }
 
                 var VehicleMake = context.Makes.Single(m => m.Make == carData[0]);
-                var model = context.Models.Single(m => m.Model == carData[1]);
+                var model = context.Models.Single(m => m.Model == carData[1].TrimEnd());
                 var displacement = context.Engines.Single(e => e.Engine == cc);
                 var drivetrain = context.DrivetrainTypes.Single(d => d.Drivetrain == carData[3]);
                 var transmissionType = context.TransmissionTypes.Single(t => t.Transmission == carData[4]);
@@ -54,7 +55,7 @@ namespace VehicleData.Core
             reader.Dispose();
 
             context.Vehicles.AddRange(validVehicles);
-            //context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }
