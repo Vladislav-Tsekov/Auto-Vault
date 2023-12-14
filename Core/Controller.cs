@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Text;
-using VehicleData.Data;
+﻿using VehicleData.Data;
 using VehicleData.Data.Models;
 
 namespace VehicleData.Core
@@ -11,13 +9,13 @@ namespace VehicleData.Core
         {
             string filePath = @"all-vehicles-model.csv";
 
-            VehicleDataContext? context = new();
+            VehicleDataContext context = new();
             using var reader = new StreamReader(filePath);
             reader.ReadLine(); // Used to skip the first column - column's titles.
 
             while (!reader.EndOfStream)
             {
-                string? currentCar = reader.ReadLine();
+                string currentCar = reader.ReadLine();
                 string[] carData = currentCar.Split(';');
                 double.TryParse(carData[2], out double cc);
                 int.TryParse(carData[6], out int outYear);

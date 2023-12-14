@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleData.Data;
+﻿using VehicleData.Data;
 using VehicleData.Data.Models;
 
 namespace VehicleData.Core
@@ -13,15 +8,18 @@ namespace VehicleData.Core
         public void YearTablePopulation() 
         {
             var context = new VehicleDataContext();
+            var yearsToAdd = new HashSet<Year>();
 
             if (!context.Years.Any())
             {
                 for (int year = 1984; year <= 2030; year++)
                 {
-                    context.Years.Add(new Year { ManufacturingYear = year });
+                    Year currentYear = new(){ ManufacturingYear = year};
+                    yearsToAdd.Add(currentYear);
                 }
 
-                context.SaveChanges();
+                context.Years.AddRange(yearsToAdd);
+                context.SaveChangesAsync();
             }
             else
             {
@@ -31,15 +29,15 @@ namespace VehicleData.Core
 
         public void RestOfDataPopulation() 
         {
-            VehicleDataContext? context = new();
+            VehicleDataContext context = new();
 
             string filePath = @"all-vehicles-model.csv";
             using var reader = new StreamReader(filePath);
-            reader.ReadLine(); // Used to skip the first column - column's titles.
+            reader.ReadLine(); // Used to skip the first row - column's titles.
 
             while (!reader.EndOfStream)
             {
-                string? currentCar = reader.ReadLine();
+                string currentCar = reader.ReadLine();
                 string[] carData = currentCar.Split(';');
 
                 var makeExists = context.Makes.FirstOrDefault(m => m.Make == carData[0]);

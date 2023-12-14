@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VehicleData.Data.Models;
 
 namespace VehicleData.Data;
@@ -20,8 +18,7 @@ public partial class VehicleDataContext : DbContext
     public virtual DbSet<VehicleClass> VehicleClasses { get; set; }
     public virtual DbSet<Year> Years { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=VehicleData;Integrated Security=True;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(Config.ConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

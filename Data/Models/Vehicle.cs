@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace VehicleData.Data.Models
+﻿namespace VehicleData.Data.Models
 {
     public partial class Vehicle
     {
@@ -14,13 +11,13 @@ namespace VehicleData.Data.Models
         public int? TransmissionType { get; set; }
         public int? VehicleSizeClass { get; set; }
         public int? Year { get; set; }
-        public virtual VehicleMake? MakeNavigation { get; set; }
-        public virtual VehicleModel? ModelNavigation { get; set; }
-        public virtual VehicleBaseModel? BaseModelNavigation { get; set; }
-        public virtual DrivetrainType? DrivetrainTypeNavigation { get; set; }
-        public virtual Engine? DisplacementNavigation { get; set; }
-        public virtual TransmissionType? TransmissionTypeNavigation { get; set; }
-        public virtual VehicleClass? VehicleSizeClassNavigation { get; set; }
-        public virtual Year? YearNavigation { get; set; }
+        public virtual VehicleMake MakeNavigation { get; set; }
+        public virtual VehicleModel ModelNavigation { get; set; }
+        public virtual VehicleBaseModel BaseModelNavigation { get; set; }
+        public virtual DrivetrainType DrivetrainTypeNavigation { get; set; }
+        public virtual Engine DisplacementNavigation { get; set; }
+        public virtual TransmissionType TransmissionTypeNavigation { get; set; }
+        public virtual VehicleClass VehicleSizeClassNavigation { get; set; }
+        public virtual Year YearNavigation { get; set; }
     }
 }

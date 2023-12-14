@@ -69,3 +69,4 @@ C:\Users\tseko\OneDrive\Documents\SoftUni\C# Personal Projects\VehicleData\obj\D
 C:\Users\tseko\OneDrive\Documents\SoftUni\C# Personal Projects\VehicleData\obj\Debug\net6.0\VehicleData.pdb
 C:\Users\tseko\OneDrive\Documents\SoftUni\C# Personal Projects\VehicleData\obj\Debug\net6.0\VehicleData.genruntimeconfig.cache
 C:\Users\tseko\OneDrive\Documents\SoftUni\C# Personal Projects\VehicleData\obj\Debug\net6.0\ref\VehicleData.dll
+C:\Users\tseko\OneDrive\Documents\SoftUni\C# Personal Projects\VehicleData\obj\Debug\net6.0\VehicleData.sourcelink.json
