@@ -10,7 +10,7 @@ public partial class DrivetrainType
 
     [Required]
     [MaxLength(DataConstraints.DrivetrainMaxLength)]
-    public string Drive { get; set; }
+    public string Drivetrain { get; set; }
 
     public virtual ICollection<Vehicle> Vehicles { get; set; } = new HashSet<Vehicle>();
 }
