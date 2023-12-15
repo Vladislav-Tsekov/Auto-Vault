@@ -1,4 +1,5 @@
-﻿using VehicleData.Data;
+﻿using System.Linq;
+using VehicleData.Data;
 using VehicleData.Data.Models;
 
 namespace VehicleData.Core
@@ -8,6 +9,7 @@ namespace VehicleData.Core
         public void YearTablePopulation() 
         {
             var context = new VehicleDataContext();
+
             var yearsToAdd = new HashSet<Year>();
 
             if (!context.Years.Any())
@@ -20,6 +22,8 @@ namespace VehicleData.Core
 
                 context.Years.AddRange(yearsToAdd);
                 context.SaveChanges();
+
+                Console.WriteLine("Year table successfully populated with entries in the range of 1984 - 2030!");
             }
             else
             {
@@ -31,7 +35,8 @@ namespace VehicleData.Core
         {
             VehicleDataContext context = new();
 
-            string filePath = "../../../all-vehicles-model.csv";
+            string filePath = "../../../Auto-Data-Seed.csv";
+
             using var reader = new StreamReader(filePath);
             reader.ReadLine(); // Used to skip the first row - column's titles.
 
@@ -62,32 +67,11 @@ namespace VehicleData.Core
                     models.Add(currentModel);
                 }
 
-                VehicleBaseModel baseModelExists = baseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
-                if (baseModelExists is null)
+                VehicleEngine engineExists = engines.FirstOrDefault(m => m.Engine == double.Parse(carData[2]));
+                if (engineExists is null)
                 {
-                    var currentBaseModel = new VehicleBaseModel() { BaseModel = carData[7] };
-                    baseModels.Add(currentBaseModel);
-                }
-
-                VehicleClass classExists = classes.FirstOrDefault(c => c.Class == carData[5]);
-                if (classExists is null)
-                {
-                    var currentClass = new VehicleClass() { Class = carData[5] };
-                    classes.Add(currentClass);
-                }
-
-                if (double.TryParse(carData[2], out double displacementValue))
-                {
-                    VehicleEngine engineExists = engines.FirstOrDefault(m => m.Engine == displacementValue);
-                    if (engineExists is null)
-                    {
-                        var currentEngine = new VehicleEngine() { Engine = displacementValue };
-                        engines.Add(currentEngine);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Invalid or null displacement value: ->{carData[2]}<-.");
+                    var currentEngine = new VehicleEngine() { Engine = double.Parse(carData[2]) };
+                    engines.Add(currentEngine);
                 }
 
                 DrivetrainType driveExists = drivetrains.FirstOrDefault(d => d.Drivetrain == carData[3]);
@@ -103,21 +87,35 @@ namespace VehicleData.Core
                     var currentTransmission = new TransmissionType() { Transmission = carData[4] };
                     transmissions.Add(currentTransmission);
                 }
+
+                VehicleClass classExists = classes.FirstOrDefault(c => c.Class == carData[5]);
+                if (classExists is null)
+                {
+                    var currentClass = new VehicleClass() { Class = carData[5] };
+                    classes.Add(currentClass);
+                }
+
+                VehicleBaseModel baseModelExists = baseModels.FirstOrDefault(bm => bm.BaseModel == carData[7]);
+                if (baseModelExists is null)
+                {
+                    var currentBaseModel = new VehicleBaseModel() { BaseModel = carData[7] };
+                    baseModels.Add(currentBaseModel);
+                }
             }
 
             reader.Dispose();
 
-            var orderedEngines = engines.OrderBy(e => e.Engine);
-
-            context.Makes.AddRange(makes);
-            context.Models.AddRange(models);
-            context.BaseModels.AddRange(baseModels);
-            context.VehicleClasses.AddRange(classes);
-            context.Engines.AddRange(orderedEngines);
-            context.DrivetrainTypes.AddRange(drivetrains);
-            context.TransmissionTypes.AddRange(transmissions);
+            context.Makes.AddRange(makes.OrderBy(mk => mk.Make));
+            context.Models.AddRange(models.OrderBy(md => md.Model));
+            context.Engines.AddRange(engines.OrderBy(eng => eng.Engine));
+            context.DrivetrainTypes.AddRange(drivetrains.OrderBy(dt => dt.Drivetrain));
+            context.TransmissionTypes.AddRange(transmissions.OrderBy(tr => tr.Transmission));
+            context.VehicleClasses.AddRange(classes.OrderBy(cl => cl.Class));
+            context.BaseModels.AddRange(baseModels.OrderBy(bm => bm.BaseModel));
 
             context.SaveChanges();
+
+            Console.WriteLine("All tables have been successfully populated! Seeding of all vehicles will start momentarily.");
         }
     }
 }

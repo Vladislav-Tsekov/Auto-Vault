@@ -7,7 +7,7 @@ namespace VehicleData.Core
     {
         public void SeedData()
         {
-            string filePath = "../../../all-vehicles-model.csv";
+            string filePath = "../../../Auto-Data-Seed.csv";
 
             VehicleDataContext context = new();
             using var reader = new StreamReader(filePath);
