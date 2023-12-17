@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using Microsoft.VisualBasic;
+using System.Linq;
 using VehicleData.Data;
 using VehicleData.Data.Models;
+using VehicleData.Utilities;
 
 namespace VehicleData.Core
 {
@@ -23,11 +25,11 @@ namespace VehicleData.Core
                 context.Years.AddRange(yearsToAdd);
                 context.SaveChanges();
 
-                Console.WriteLine("Year table successfully populated with entries in the range of 1984 - 2030!");
+                Console.WriteLine(GlobalConstants.YearTablePopulated);
             }
             else
             {
-                Console.WriteLine("Year table is already populated. Verify the data!");
+                Console.WriteLine(GlobalConstants.YearTableAlreadyPopulated);
             }
         }
 
@@ -35,9 +37,7 @@ namespace VehicleData.Core
         {
             VehicleDataContext context = new();
 
-            string filePath = "../../../Auto-Data-Seed.csv";
-
-            using var reader = new StreamReader(filePath);
+            using var reader = new StreamReader(GlobalConstants.FilePath);
             reader.ReadLine(); // Used to skip the first row - column's titles.
 
             HashSet<VehicleMake> makes = new();
@@ -115,7 +115,7 @@ namespace VehicleData.Core
 
             context.SaveChanges();
 
-            Console.WriteLine("All tables have been successfully populated! Seeding of all vehicles will start momentarily.");
+            Console.WriteLine(GlobalConstants.AllTablesPopulated);
         }
     }
 }
