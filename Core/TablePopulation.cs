@@ -6,7 +6,7 @@ using VehicleData.Utilities;
 
 namespace VehicleData.Core
 {
-    public class DataPopulation
+    public class TablePopulation
     {
         public void YearTablePopulation(VehicleDataContext context) 
         {

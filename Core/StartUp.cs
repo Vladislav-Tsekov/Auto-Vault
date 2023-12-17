@@ -10,11 +10,11 @@ namespace VehicleData.Core
             VehicleDataContext context = new();
             DatabaseControl(context, shouldDropDatabase: false);
 
-            DataPopulation data = new();
+            TablePopulation data = new();
             data.YearTablePopulation(context);
             data.RestOfDataPopulation(context);
 
-            Controller controller = new();
+            DataSeed controller = new();
             controller.SeedData(context);
         }
 

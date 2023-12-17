@@ -4,7 +4,7 @@ using VehicleData.Utilities;
 
 namespace VehicleData.Core
 {
-    public class Controller
+    public class DataSeed
     {
         public void SeedData(VehicleDataContext context)
         {
