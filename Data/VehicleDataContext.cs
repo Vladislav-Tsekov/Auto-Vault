@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VehicleData.Data.Models;
+using VehicleData.Utilities;
 
 namespace VehicleData.Data;
 
@@ -18,7 +19,7 @@ public partial class VehicleDataContext : DbContext
     public virtual DbSet<VehicleClass> VehicleClasses { get; set; }
     public virtual DbSet<Year> Years { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(Config.ConnectionString);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(GlobalConstants.ConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
