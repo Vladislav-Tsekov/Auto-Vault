@@ -6,10 +6,8 @@ namespace VehicleData.Core
 {
     public class Controller
     {
-        public void SeedData()
+        public void SeedData(VehicleDataContext context)
         {
-            VehicleDataContext context = new();
-
             using var reader = new StreamReader(GlobalConstants.FilePath);
             reader.ReadLine(); // Used to skip the first column - column's titles.
 
