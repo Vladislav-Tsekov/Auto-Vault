@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VehicleData.Data;
+using VehicleData.Utilities;
 
 namespace VehicleData.Core
 {
@@ -14,8 +15,8 @@ namespace VehicleData.Core
             data.YearTablePopulation(context);
             data.RestOfDataPopulation(context);
 
-            DataSeed controller = new();
-            controller.SeedData(context);
+            DataSeed seeder = new();
+            seeder.SeedData(context);
         }
 
         private static void DatabaseControl(VehicleDataContext context, bool shouldDropDatabase = false)
@@ -30,18 +31,16 @@ namespace VehicleData.Core
                 return;
             }
 
-            var disableIntegrityChecksQuery = "EXEC sp_MSforeachtable @command1='ALTER TABLE ? NOCHECK CONSTRAINT ALL'";
+            var disableIntegrityChecksQuery = GlobalConstants.DisableIntegrityCheck;
             context.Database.ExecuteSqlRaw(disableIntegrityChecksQuery);
 
-            var deleteRowsQuery = "EXEC sp_MSforeachtable @command1='SET QUOTED_IDENTIFIER ON;DELETE FROM ?'";
+            var deleteRowsQuery = GlobalConstants.DeleteRowsQuery;
             context.Database.ExecuteSqlRaw(deleteRowsQuery);
 
-            var enableIntegrityChecksQuery =
-                "EXEC sp_MSforeachtable @command1='ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'";
+            var enableIntegrityChecksQuery = GlobalConstants.EnableIntegrityCheck;
             context.Database.ExecuteSqlRaw(enableIntegrityChecksQuery);
 
-            var reseedQuery =
-                "EXEC sp_MSforeachtable @command1='IF OBJECT_ID(''?'') IN (SELECT OBJECT_ID FROM SYS.IDENTITY_COLUMNS) DBCC CHECKIDENT(''?'', RESEED, 0)'";
+            var reseedQuery = GlobalConstants.ReseedQuery;
             context.Database.ExecuteSqlRaw(reseedQuery);
         }
     }
