@@ -8,10 +8,8 @@ namespace VehicleData.Core
 {
     public class DataPopulation
     {
-        public void YearTablePopulation() 
+        public void YearTablePopulation(VehicleDataContext context) 
         {
-            var context = new VehicleDataContext();
-
             var yearsToAdd = new HashSet<Year>();
 
             if (!context.Years.Any())
@@ -33,10 +31,8 @@ namespace VehicleData.Core
             }
         }
 
-        public void RestOfDataPopulation() 
+        public void RestOfDataPopulation(VehicleDataContext context) 
         {
-            VehicleDataContext context = new();
-
             using var reader = new StreamReader(GlobalConstants.FilePath);
             reader.ReadLine(); // Used to skip the first row - column's titles.
 

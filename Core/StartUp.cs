@@ -11,8 +11,8 @@ namespace VehicleData.Core
             DatabaseControl(context, shouldDropDatabase: false);
 
             DataPopulation data = new();
-            data.YearTablePopulation();
-            data.RestOfDataPopulation();
+            data.YearTablePopulation(context);
+            data.RestOfDataPopulation(context);
 
             Controller controller = new();
             controller.SeedData();
