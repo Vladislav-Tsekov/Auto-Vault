@@ -1,5 +1,6 @@
 ﻿using VehicleData.Data;
 using VehicleData.Data.Models;
+using VehicleData.Utilities;
 
 namespace VehicleData.Core
 {
@@ -7,10 +8,9 @@ namespace VehicleData.Core
     {
         public void SeedData()
         {
-            string filePath = "../../../Auto-Data-Seed.csv";
-
             VehicleDataContext context = new();
-            using var reader = new StreamReader(filePath);
+
+            using var reader = new StreamReader(GlobalConstants.FilePath);
             reader.ReadLine(); // Used to skip the first column - column's titles.
 
             var validVehicles = new HashSet<Vehicle>();
