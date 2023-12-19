@@ -101,6 +101,8 @@ namespace VehicleData.Core
 
             reader.Dispose();
 
+            string output = "";
+
             StreamWriter baseModelsWriter = new StreamWriter("../../../bmData.csv");
             baseModelsWriter.WriteLine($"INSERT INTO VehicleBaseModels (BaseModel){Environment.NewLine}VALUES");
             foreach (var bm in baseModels)
