@@ -101,56 +101,6 @@ namespace VehicleData.Core
 
             reader.Dispose();
 
-            string output = "";
-
-            StreamWriter baseModelsWriter = new StreamWriter("../../../bmData.csv");
-            baseModelsWriter.WriteLine($"INSERT INTO VehicleBaseModels (BaseModel){Environment.NewLine}VALUES");
-            foreach (var bm in baseModels)
-            {
-                baseModelsWriter.WriteLine($"('{bm.BaseModel}'), ");
-            }
-            baseModelsWriter.Dispose();
-
-            StreamWriter transmWriter = new StreamWriter("../../../transmData.csv");
-            transmWriter.WriteLine($"INSERT INTO TransmissionTypes (Transmission){Environment.NewLine}VALUES");
-            foreach (var t in transmissions)
-            {
-                transmWriter.WriteLine($"('{t.Transmission}'), ");
-            }
-            transmWriter.Dispose();
-
-            StreamWriter driveWriter = new StreamWriter("../../../driveData.csv");
-            driveWriter.WriteLine($"INSERT INTO DrivetrainTypes (Drivetrain){Environment.NewLine}VALUES");
-            foreach (var d in drivetrains)
-            {
-                driveWriter.WriteLine($"('{d.Drivetrain}'), ");
-            }
-            driveWriter.Dispose();
-
-            StreamWriter classWriter = new StreamWriter("../../../classData.csv");
-            classWriter.WriteLine($"INSERT INTO VehicleClasses (Class){Environment.NewLine}VALUES");
-            foreach (var c in classes)
-            {
-                classWriter.WriteLine($"('{c.Class}'), ");
-            }
-            classWriter.Dispose();
-
-            StreamWriter makesWriter = new StreamWriter("../../../makeData.csv");
-            makesWriter.WriteLine($"INSERT INTO VehicleMakes (Make){Environment.NewLine}VALUES");
-            foreach (var mk in makes)
-            {
-                makesWriter.WriteLine($"('{mk.Make}'), ");
-            }
-            makesWriter.Dispose();
-
-            StreamWriter modelsWriter = new StreamWriter("../../../modelData.csv");
-            modelsWriter.WriteLine($"INSERT INTO VehicleModels (Model){Environment.NewLine}VALUES");
-            foreach (var md in models)
-            {
-                modelsWriter.WriteLine($"('{md.Model}'), ");
-            }
-            modelsWriter.Dispose();
-
             context.Makes.AddRange(makes.OrderBy(mk => mk.Make));
             context.Models.AddRange(models.OrderBy(md => md.Model));
             context.Engines.AddRange(engines.OrderBy(eng => eng.Engine));
